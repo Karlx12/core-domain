@@ -5,56 +5,139 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/incadev-uns/core-domain/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/incadev-uns/core-domain/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/incadev-uns/core-domain.svg?style=flat-square)](https://packagist.org/packages/incadev-uns/core-domain)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package provides the single source of truth for the Incadev business domain, modeling the shared database schema, and Eloquent models. It ensures all projects built on this platform share the same data structure.
 
-## Support us
+## Requirements
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/core-domain.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/core-domain)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- PHP ^8.2
+- Laravel ^12.0
 
 ## Installation
 
-You can install the package via composer:
+Installing this package is a multi-step process. Please follow these instructions carefully.
+
+### 1. Install the Package
+
+First, install the incadev/core package via Composer:
 
 ```bash
-composer require incadev-uns/core-domain
+composer require incadev-uns/core-domain:dev-main
 ```
 
-You can publish and run the migrations with:
+### 2. Install Dependencies
+
+This package relies on [Laravel Sanctum](https://laravel.com/docs/12.x/sanctum) and [Spatie's Laravel-Permission](https://spatie.be/docs/laravel-permission/v6/installation-laravel). You must install and configure them first.
+
+Publish Sanctum's configuration and migration
 
 ```bash
-php artisan vendor:publish --tag="core-domain-migrations"
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+```
+
+Publish Spatie/Permission's configuration and migration
+
+```bash
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+```
+
+### 3. Run Core Migrations
+
+This package will add all core domain tables and modify your existing users table.
+
+You must run the migrations:
+
+```bash
 php artisan migrate
 ```
 
-You can publish the config file with:
+### 4. Configure Your User Model
 
-```bash
-php artisan vendor:publish --tag="core-domain-config"
-```
+This is the most critical step. Your `app/Models/User.php` model must be updated to use the traits and fields provided by this package and its dependencies.
 
-This is the contents of the published config file:
+#### A. Add Traits
+
+Import and use the `HasIncadevCore`, `HasApiTokens`, and `HasRoles` traits.
 
 ```php
-return [
-];
+<?php
+
+namespace App\Models;
+
+// ...
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;                 // <-- 1. Import Laravel Sanctum
+use Spatie\Permission\Traits\HasRoles;            // <-- 2. Import Spatie Permission
+use IncadevUns\CoreDomain\Traits\HasIncadevCore;  // <-- 3. Import Incadev Core
+
+class User extends Authenticatable
+{
+    use // ...
+        HasApiTokens, HasRoles, HasIncadevCore;   // <-- 4. Use all traits
+
+    // ...
 ```
 
-Optionally, you can publish the views using
+#### B. Update `$fillable` Array
 
-```bash
-php artisan vendor:publish --tag="core-domain-views"
+Our migration adds dni, fullname, avatar, and phone to your users table. You must add these to the $fillable array to allow mass assignment.
+
+```php
+protected $fillable = [
+    'name',
+    'email',
+    'password',
+    
+    // --- Add these new fields ---
+    'dni',
+    'fullname',
+    'avatar',
+    'phone',
+    // ----------------------------
+];
 ```
 
 ## Usage
 
+The primary purpose of this package is to provide a unified set of Eloquent models and traits.
+
+### Accessing Relations from the User
+
+Once you have configured the `HasIncadevCore` trait on your `User` model, you can instantly access all related data:
+
 ```php
-$coreDomain = new IncadevUns\CoreDomain();
-echo $coreDomain->echoPhrase('Hello, IncadevUns!');
+$user = Auth::user();
+
+// Get user profiles
+$studentProfile = $user->studentProfile;
+$teacherProfile = $user->teacherProfile;
+
+// Get academic data
+$enrollments = $user->enrollments;
+$certificates = $user->certificates;
+
+// Get community data
+$threads = $user->threads;
+$comments = $user->comments;
+
+// Get support data
+$tickets = $user->tickets;
+
+// Get HR data
+$contracts = $user->contracts;
+$applications = $user->applications;
+
+// Get appointments
+$apptsAsStudent = $user->appointmentsAsStudent;
+$apptsAsTeacher = $user->appointmentsAsTeacher;
 ```
+
+### Using Polymorphic Traits
+
+This package provides powerful traits to add behavior to any model.
+
+- `CanBeAudited`: Allows all actions on a model to be audited.
+- `CanBeRated`: Allows a model to be rated using the core Survey system.
+- `CanBeVoted`: Allows a model to be upvoted or downvoted.
 
 ## Testing
 
@@ -62,17 +145,9 @@ echo $coreDomain->echoPhrase('Hello, IncadevUns!');
 composer test
 ```
 
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 

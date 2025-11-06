@@ -2,7 +2,6 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use IncadevUns\CoreDomain\Traits\CanBeAudited;
@@ -37,7 +36,7 @@ use IncadevUns\CoreDomain\Traits\CanBeAudited;
  */
 class Certificate extends Model
 {
-    use CanBeAudited, HasUuids;
+    use CanBeAudited;
 
     protected $fillable = [
         'uuid',

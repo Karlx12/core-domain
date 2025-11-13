@@ -1,13 +1,13 @@
 <?php
+
 namespace IncadevUns\CoreDomain\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Software newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Software newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Software query()
@@ -22,25 +22,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @mixin \Eloquent
  */
-
 class Software extends Model
 {
     use HasFactory;
+
     protected $table = 'softwares';
+
     protected $fillable = [
         'asset_id',
         'software_name',
         'version',
         'type'];
 
-    public function licenses(): HasMany{
+    public function licenses(): HasMany
+    {
         return $this->hasMany(License::class, 'software_id');
     }
 
-    public function asset(): BelongsTo{
+    public function asset(): BelongsTo
+    {
         return $this->belongsTo(TechAsset::class, 'asset_id');
     }
-
-
-
 }

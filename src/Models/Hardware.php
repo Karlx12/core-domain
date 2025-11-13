@@ -2,12 +2,11 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
+use Illuminate\Databas\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Databas\Eloquent\Relations\BelongsTo;
 
 /**
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hardware newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hardware newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hardware query()
@@ -22,7 +21,6 @@ use Illuminate\Databas\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-
 class Hardware extends Model
 {
     use HasFactory;
@@ -34,11 +32,11 @@ class Hardware extends Model
         'model',
         'serial_number',
         'warranty_expiration',
-        'specs'
+        'specs',
     ];
 
-    public function asset(): BelongsTo{
+    public function asset(): BelongsTo
+    {
         return $this->belongsTo(TechAsset::class, 'asset_id');
     }
-
 }

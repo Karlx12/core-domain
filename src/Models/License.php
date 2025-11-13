@@ -1,12 +1,12 @@
 <?php
+
 namespace IncadevUns\CoreDomain\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License query()
@@ -21,10 +21,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-
-class License extends Model{
-
+class License extends Model
+{
     use HasFactory;
+
     protected $table = 'licenses';
 
     protected $fillable = ['software_id',
@@ -35,15 +35,16 @@ class License extends Model{
         'cost',
         'status',
     ];
-    
+
     protected $casts = [
         'purchase_date' => 'datetime',
         'expiration_date' => 'datetime',
         'cost' => 'decimal:2',
     ];
 
-    #probablemente necesite refactorizarse
-    public function software(): BelongsTo{
+    // probablemente necesite refactorizarse
+    public function software(): BelongsTo
+    {
         return $this->belongsTo(Software::class);
     }
 }

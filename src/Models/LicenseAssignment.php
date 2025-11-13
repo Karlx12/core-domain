@@ -2,12 +2,11 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment query()
@@ -22,9 +21,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-
-class LicenseAssignment extends Model{
-
+class LicenseAssignment extends Model
+{
     use HasFactory;
 
     protected $table = 'license_assignments';
@@ -33,19 +31,21 @@ class LicenseAssignment extends Model{
         'license_id',
         'asset_id',
         'assigned_date',
-        'status'
-    ];
-    
-    protected $casts = [
-        'assigned_date' => 'datetime'
+        'status',
     ];
 
-    #probablemente necesite refactorizarse
-    public function license(): BelongsTo{
+    protected $casts = [
+        'assigned_date' => 'datetime',
+    ];
+
+    // probablemente necesite refactorizarse
+    public function license(): BelongsTo
+    {
         return $this->belongsTo(License::class, 'license_id');
     }
 
-    public function asset(): BelongsTo{
+    public function asset(): BelongsTo
+    {
         return $this->belongsTo(TechAsset::class, 'asset_id');
     }
 }

@@ -43,13 +43,15 @@ class UserSeeder extends Seeder
 
         $userModelClass = config('auth.providers.users.model', 'App\Models\User');
 
-        $superAdmin = $userModelClass::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@incadev.com',
-            'password' => Hash::make('password'),
-            'dni' => '00000001',
-            'fullname' => 'SUPER ADMINISTRATOR',
-        ]);
+        $superAdmin = $userModelClass::firstOrCreate(
+            ['email' => 'admin@incadev.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('password'),
+                'dni' => '00000001',
+                'fullname' => 'SUPER ADMINISTRATOR',
+            ]
+        );
         $superAdmin->assignRole($adminRole);
         $superAdmin->assignRole($studentRole);
         StudentProfile::firstOrCreate(

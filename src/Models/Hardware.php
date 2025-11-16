@@ -2,7 +2,7 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
-use Illuminate\Databas\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -459,7 +459,7 @@ class TechnologySeeder extends Seeder
                 ],
             ];
 
-            $replies = $supportReplies[$type->value] ?? ['Gracias por contactarnos.'];
+            $replies = $supportReplies[$type->value];
 
             return $replies[$replyIndex % count($replies)];
         } else {

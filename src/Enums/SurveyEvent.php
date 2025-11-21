@@ -4,10 +4,9 @@ namespace IncadevUns\CoreDomain\Enums;
 
 enum SurveyEvent: string
 {
-    case Appointment = 'appointment';
-    case Course = 'course';
-    case CourseVersion = 'course_version';
-    case Group = 'group';
+    case Satisfaction = 'satisfaction';
+    case Teacher = 'teacher';
+    case Impact = 'impact';
 
     public static function values(): array
     {

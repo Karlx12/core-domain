@@ -2,18 +2,18 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class StandardRating extends Model
 {
     protected $table = 'standard_ratings';
-    
+
     protected $fillable = [
-        'quality_standard_id', 
-        'user_id', 
-        'score', 
-        'comment'
+        'quality_standard_id',
+        'user_id',
+        'score',
+        'comment',
     ];
 
     /**

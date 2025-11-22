@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class QualityStandard extends Model
 {
     protected $table = 'quality_standards';
-    
+
     protected $fillable = [
-        'name', 
-        'category', 
-        'description', 
-        'target_score', 
-        'target_roles', 
-        'is_active'
+        'name',
+        'category',
+        'description',
+        'target_score',
+        'target_roles',
+        'is_active',
     ];
 
     protected $casts = [
         'target_roles' => 'array',
         'is_active' => 'boolean', // Recomendado: Convierte 1/0 a true/false automáticamente
-        'target_score' => 'float' // Asegura que la meta se maneje como número
+        'target_score' => 'float', // Asegura que la meta se maneje como número
     ];
 
     /**

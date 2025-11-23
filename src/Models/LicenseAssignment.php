@@ -7,16 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property int $id
+ * @property int $license_id
+ * @property int $asset_id
+ * @property \Illuminate\Support\Carbon|null $assigned_date
+ * @property string|null $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \IncadevUns\CoreDomain\Models\License $license
+ * @property-read \IncadevUns\CoreDomain\Models\TechAsset $asset
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereContactEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereContactPhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereRuc($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereLicenseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereAssetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereAssignedDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LicenseAssignment whereUpdatedAt($value)
  *
  * @mixin \Eloquent

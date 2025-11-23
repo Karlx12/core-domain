@@ -5,18 +5,35 @@ namespace IncadevUns\CoreDomain\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @property int $id
+ * @property int $software_id
+ * @property string|null $key_code
+ * @property string|null $provider
+ * @property \Illuminate\Support\Carbon|null $purchase_date
+ * @property \Illuminate\Support\Carbon|null $expiration_date
+ * @property string|null $cost
+ * @property string|null $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \IncadevUns\CoreDomain\Models\Software|null $software
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \IncadevUns\CoreDomain\Models\LicenseAssignment> $assignments
+ * @property-read int|null $assignments_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereContactEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereContactPhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereRuc($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereSoftwareId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereKeyCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License wherePurchaseDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereExpirationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|License whereUpdatedAt($value)
  *
  * @mixin \Eloquent
@@ -46,5 +63,10 @@ class License extends Model
     public function software(): BelongsTo
     {
         return $this->belongsTo(Software::class);
+    }
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(LicenseAssignment::class, 'license_id');
     }
 }

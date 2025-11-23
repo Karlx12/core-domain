@@ -1,13 +1,22 @@
 laravel: '@testbench'
 
 providers:
-  # - Workbench\App\Providers\WorkbenchServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
 
 migrations:
   - workbench/database/migrations
+  - database/migrations
 
-seeders:
-  - IncadevUns\CoreDomain\Database\Seeders\IncadevSeeder
+#seeders:
+#  - IncadevUns\CoreDomain\Database\Seeders\IncadevSeeder
+
+env:
+  DB_CONNECTION: mysql
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_DATABASE: core_domain_test
+  DB_USERNAME: root
+  DB_PASSWORD: "root"
 
 workbench:
   start: '/'
@@ -22,7 +31,7 @@ workbench:
     views: false
   build:
     - asset-publish
-    - create-sqlite-db
+    # - create-sqlite-db    # <-- Comenta o elimina esta línea
     - db-wipe
     - migrate-fresh
   assets:

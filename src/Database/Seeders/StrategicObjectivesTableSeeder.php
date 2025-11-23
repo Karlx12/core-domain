@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use IncadevUns\CoreDomain\Models\StrategicObjective;
 
 class StrategicObjectivesTableSeeder extends Seeder

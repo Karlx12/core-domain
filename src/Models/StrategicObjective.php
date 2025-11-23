@@ -34,7 +34,7 @@ class StrategicObjective extends Model
 
     public function user()
     {
-        $userModel = config('auth.providers.users.model', \App\Models\User::class);
+        $userModel = config('auth.providers.users.model', 'App\Models\User');
 
         return $this->belongsTo($userModel, 'user_id');
     }

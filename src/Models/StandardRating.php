@@ -2,7 +2,6 @@
 
 namespace IncadevUns\CoreDomain\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class StandardRating extends Model
@@ -29,6 +28,6 @@ class StandardRating extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('auth.providers.users.model', 'App\Models\User'));
     }
 }

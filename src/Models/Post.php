@@ -39,7 +39,7 @@ class Post extends Model
         'platform',
         'content',
         'content_type',
-        'image_path',
+        'image_id',
         'link_url',
         'status',
         'scheduled_at',

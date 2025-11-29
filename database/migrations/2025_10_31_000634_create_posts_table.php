@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('platform');
             $table->text('content')->nullable();
             $table->string('content_type');
-            $table->string('image_path')->nullable();
+            $table->string('image_id')->nullable();
             $table->string('link_url')->nullable();
             $table->string('status');
             $table->timestamp('scheduled_at')->nullable();
